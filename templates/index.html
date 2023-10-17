@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cargar Imagen</title>
+</head>
+<body>
+    <h1>Detección de Neumonía</h1>
+    <form method="post" enctype="multipart/form-data" action="{% url 'cargar_imagen' %}">
+        {% csrf_token %}
+        <input type="file" name="imagen">
+        <button type="submit">Analizar Imagen</button>
+    </form>
+
+    {% if resultado is not None %}
+        <h2>Resultado:</h2>
+        {% if resultado %}
+            <p style="color: green;">La persona tiene neumonía.</p>
+        {% else %}
+            <p style="color: red;">La persona no tiene neumonía.</p>
+        {% endif %}
+    {% endif %}
+</body>
+</html>
