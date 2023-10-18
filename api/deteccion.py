@@ -27,11 +27,19 @@ def deteccion_neumonia(imagen):
 
         # Realiza la predicción utilizando el modelo
         resultado = model.predict(np.expand_dims(imagen, axis=0))[0]
-
+        porcentaje_acierto1 = np.max(resultado[0]) * 100
+        porcentaje_acierto2 = np.max(resultado[1]) * 100
+        
         # Determina si la imagen tiene neumonía o no
         if resultado[0] > resultado[1]:
-            return False  # Sin neumonía
+            nueva = False
+              #Sin neumonía
         else:
-            return True  # Con neumonía
+            nueva = True  #Con neumonía
+        return{
+            'resultado': nueva,
+            'confiabilidad_no': round(porcentaje_acierto1,2),
+            'confiabilidad_si': round(porcentaje_acierto2,2)
+        }    
     else:
         return False  # Devuelve un valor predeterminado si la imagen no es válida
